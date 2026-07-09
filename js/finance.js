@@ -40,22 +40,32 @@ function paymentInterest(balance, rate, payment, extra = 0) {
   return { months, interest };
 }
 
-function summarizeFinances({ income, expenses, loans, assets, extraPayment }) {
+function summarizeFinances({ income, expenses, loans, investments, assets, extraPayment }) {
   const totalDebt = loans.reduce((sum, loan) => sum + (Number(loan.balance) || 0), 0);
   const totalPayments = loans.reduce((sum, loan) => sum + (Number(loan.payment) || 0), 0);
+  const investmentCapital = investments.reduce((sum, investment) => sum + (Number(investment.capital) || 0), 0);
+  const annualInvestmentIncome = investments.reduce((sum, investment) => {
+    const capital = Number(investment.capital) || 0;
+    const rate = Number(investment.rate) || 0;
+    return sum + capital * (rate / 100);
+  }, 0);
   const assetValue = assets.reduce((sum, asset) => sum + (Number(asset.value) || 0), 0);
   const monthlyDti = income ? (totalPayments / income) * 100 : 0;
   const cashFlow = income - expenses - totalPayments;
+  const totalProfileAssets = assetValue + investmentCapital;
 
   if (!loans.length) {
     return {
       hasLoans: false,
       totalDebt,
       totalPayments,
+      investmentCapital,
+      annualInvestmentIncome,
       assetValue,
+      totalProfileAssets,
       monthlyDti,
       cashFlow,
-      netWorth: assetValue,
+      netWorth: totalProfileAssets,
       baseMonths: 0,
       extraMonths: 0,
       baseInterest: 0,
@@ -77,16 +87,20 @@ function summarizeFinances({ income, expenses, loans, assets, extraPayment }) {
   const extraMonths = Math.max(0, ...extraResults.map((result) => result.months));
   const extraInterest = extraResults.reduce((sum, result) => sum + result.interest, 0);
   const interestRatio = baseInterest / Math.max(totalDebt, 1);
-  const score = Math.max(35, Math.min(98, 100 - monthlyDti * 0.9 - interestRatio * 18 + (cashFlow > 0 ? 8 : -10)));
+  const investmentLift = Math.min(6, (investmentCapital / Math.max(totalDebt, 1)) * 3);
+  const score = Math.max(35, Math.min(98, 100 - monthlyDti * 0.9 - interestRatio * 18 + (cashFlow > 0 ? 8 : -10) + investmentLift));
 
   return {
     hasLoans: true,
     totalDebt,
     totalPayments,
+    investmentCapital,
+    annualInvestmentIncome,
     assetValue,
+    totalProfileAssets,
     monthlyDti,
     cashFlow,
-    netWorth: assetValue - totalDebt,
+    netWorth: totalProfileAssets - totalDebt,
     baseMonths,
     extraMonths,
     baseInterest,
