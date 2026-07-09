@@ -259,6 +259,157 @@ nav {
   margin: 0 0 14px;
 }
 
+.analytics-module,
+.aguinaldo-module {
+  border: 1px solid var(--border);
+  border-radius: 18px;
+  margin: 22px 0;
+  padding: 18px;
+  background: #fff;
+}
+
+.module-heading {
+  display: flex;
+  align-items: end;
+  justify-content: space-between;
+  gap: 16px;
+  margin-bottom: 16px;
+}
+
+.module-heading h3 {
+  margin: 0;
+}
+
+.module-heading p {
+  color: var(--muted);
+  margin: 6px 0 0;
+}
+
+.module-total {
+  min-width: 220px;
+  border: 1px solid var(--border);
+  border-radius: 16px;
+  padding: 14px;
+  background: #f8fafc;
+}
+
+.module-total span,
+.analytics-card span {
+  display: block;
+  color: var(--muted);
+  font-size: 13px;
+  font-weight: 700;
+}
+
+.module-total strong,
+.analytics-card strong {
+  display: block;
+  font-size: 24px;
+  margin-top: 6px;
+}
+
+.analytics-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 12px;
+}
+
+.analytics-card {
+  border: 1px solid var(--border);
+  border-radius: 16px;
+  padding: 15px;
+  background: #f8fafc;
+}
+
+.analytics-card small {
+  display: block;
+  color: var(--muted);
+  margin-top: 6px;
+}
+
+.analytics-bars {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 12px;
+  margin-top: 16px;
+}
+
+.analytics-bars span {
+  color: var(--muted);
+  display: block;
+  font-size: 13px;
+  font-weight: 700;
+  margin-bottom: 8px;
+}
+
+.analytics-bar span {
+  background: linear-gradient(90deg, #102c52, var(--green));
+  margin: 0;
+}
+
+.salary-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 10px;
+}
+
+.salary-month label {
+  color: var(--muted);
+  display: block;
+  font-size: 12px;
+  font-weight: 700;
+  margin-bottom: 6px;
+}
+
+.salary-month input {
+  width: 100%;
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  padding: 11px 12px;
+}
+
+.aguinaldo-breakdown {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 12px;
+  margin-top: 16px;
+}
+
+.composition-list {
+  display: grid;
+  gap: 10px;
+  margin-top: 16px;
+}
+
+.composition-row {
+  display: grid;
+  grid-template-columns: 160px 1fr 56px;
+  gap: 12px;
+  align-items: center;
+}
+
+.composition-row strong,
+.composition-row span {
+  display: block;
+}
+
+.composition-row span,
+.composition-row small {
+  color: var(--muted);
+}
+
+.composition-track {
+  background: #e2e8f0;
+  border-radius: 999px;
+  height: 10px;
+  overflow: hidden;
+}
+
+.composition-track span {
+  background: var(--green);
+  height: 100%;
+}
+
 .section-title {
   display: flex;
   justify-content: space-between;
@@ -538,8 +689,20 @@ nav {
 
   .summary,
   .mini-score,
+  .analytics-grid,
+  .analytics-bars,
+  .aguinaldo-breakdown,
+  .salary-grid,
   .cards {
     grid-template-columns: 1fr 1fr;
+  }
+
+  .module-heading {
+    display: block;
+  }
+
+  .module-total {
+    margin-top: 12px;
   }
 
   .navlinks {
@@ -550,11 +713,19 @@ nav {
 @media (max-width: 560px) {
   .summary,
   .cards,
-  .mini-score {
+  .mini-score,
+  .analytics-grid,
+  .analytics-bars,
+  .aguinaldo-breakdown,
+  .salary-grid {
     grid-template-columns: 1fr;
   }
 
   .form-row {
+    grid-template-columns: 1fr;
+  }
+
+  .composition-row {
     grid-template-columns: 1fr;
   }
 
