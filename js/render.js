@@ -1,5 +1,5 @@
 (() => {
-const { formatCurrency, monthName, summarizeFinances } = window.Capital360Finance;
+const { formatCurrency, monthName, summarizeAguinaldo, summarizeFinances } = window.Capital360Finance;
 const { LIMITS, state } = window.Capital360State;
 
 const BANKS = [
@@ -84,6 +84,10 @@ function renderAnalysis(t) {
     assets: state.assets,
     extraPayment: state.extraPayment
   });
+  const aguinaldo = summarizeAguinaldo(state.salaries);
+
+  renderAnalytics(summary, aguinaldo, t);
+  renderAguinaldo(aguinaldo, t);
 
   if (!summary.hasLoans) {
     renderEmptyAnalysis(summary, t);
@@ -124,10 +128,43 @@ function renderAnalysis(t) {
 
 function renderApp(t) {
   applyStaticTranslations(t);
+  renderAguinaldo(summarizeAguinaldo(state.salaries), t);
   renderLoans(t);
   renderInvestments(t);
   renderAssets(t);
   renderAnalysis(t);
+}
+
+function renderAnalytics(summary, aguinaldo, t) {
+  document.getElementById("analytics").innerHTML = `
+    ${analyticsCardTemplate(t("analytics_cashflow"), formatCurrency(summary.cashFlow), t("analytics_cashflow_hint"))}
+    ${analyticsCardTemplate(t("analytics_monthly_debt"), formatCurrency(summary.totalPayments), `${summary.monthlyDti.toFixed(1)}% ${t("of_income")}`)}
+    ${analyticsCardTemplate(t("analytics_profile_assets"), formatCurrency(summary.totalProfileAssets), `${t("investments")}: ${formatCurrency(summary.investmentCapital)}`)}
+    ${analyticsCardTemplate(t("analytics_aguinaldo"), formatCurrency(aguinaldo.aguinaldo), `${aguinaldo.monthsWithSalary}/12 ${t("salary_months")}`)}
+  `;
+
+  document.getElementById("debtBar").style.width = `${Math.min(100, summary.monthlyDti)}%`;
+  document.getElementById("assetBar").style.width =
+    `${Math.min(100, (summary.totalProfileAssets / Math.max(summary.totalDebt + summary.totalProfileAssets, 1)) * 100)}%`;
+  document.getElementById("cashBar").style.width =
+    `${summary.cashFlow > 0 ? Math.min(100, Math.max(12, (summary.cashFlow / Math.max(summary.cashFlow + summary.totalPayments, 1)) * 100)) : 6}%`;
+}
+
+function renderAguinaldo(aguinaldo, t) {
+  const rowMarkup = aguinaldo.salaryRows.map((salary, index) => salaryRowTemplate(salary, index, t)).join("");
+
+  if (document.activeElement?.dataset.salary === undefined) {
+    document.getElementById("salaryMonths").innerHTML = rowMarkup;
+  }
+
+  document.getElementById("aguinaldoEstimate").textContent = formatCurrency(aguinaldo.aguinaldo);
+  document.getElementById("salaryTotal").textContent = formatCurrency(aguinaldo.totalSalary);
+  document.getElementById("salaryMonthsCount").textContent = `${aguinaldo.monthsWithSalary}/12`;
+  document.getElementById("salaryAverage").textContent = formatCurrency(aguinaldo.averageWorkedMonth);
+  document.getElementById("aguinaldoFormula").textContent =
+    `${formatCurrency(aguinaldo.totalSalary)} / 12 = ${formatCurrency(aguinaldo.aguinaldo)}`;
+  document.getElementById("aguinaldoComposition").innerHTML =
+    aguinaldo.salaryRows.map((salary) => compositionRowTemplate(salary, t)).join("");
 }
 
 function renderEmptyAnalysis(summary, t) {
@@ -247,9 +284,44 @@ function investmentRowTemplate(investment, index, t) {
   `;
 }
 
+function salaryRowTemplate(salary, index, t) {
+  return `
+    <div class="salary-month">
+      <label>${t(salary.month)}</label>
+      <input type="number" data-salary="${index}" value="${escapeHtml(salary.amount)}" placeholder="0">
+    </div>
+  `;
+}
+
+function compositionRowTemplate(salary, t) {
+  return `
+    <div class="composition-row">
+      <div>
+        <strong>${t(salary.month)}</strong>
+        <span>${formatCurrency(salary.amount)}</span>
+      </div>
+      <div class="composition-track">
+        <span style="width: ${Math.max(3, salary.contribution)}%"></span>
+      </div>
+      <small>${salary.contribution.toFixed(1)}%</small>
+    </div>
+  `;
+}
+
+function analyticsCardTemplate(label, value, hint) {
+  return `
+    <div class="analytics-card">
+      <span>${label}</span>
+      <strong>${value}</strong>
+      <small>${hint}</small>
+    </div>
+  `;
+}
+
 window.Capital360Render = {
   applyStaticTranslations,
   renderAnalysis,
+  renderAguinaldo,
   renderApp,
   renderAssets,
   renderInvestments,
