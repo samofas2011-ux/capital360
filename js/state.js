@@ -1,6 +1,7 @@
 (() => {
 const LIMITS = {
   loans: 3,
+  investments: 2,
   assets: 2
 };
 
@@ -18,12 +19,19 @@ const DEFAULT_ASSET = {
   value: 1000000
 };
 
+const DEFAULT_INVESTMENT = {
+  name: "New Investment",
+  capital: 1000000,
+  rate: 6
+};
+
 const state = {
   language: "es",
   income: 0,
   expenses: 0,
   extraPayment: 100000,
   loans: [],
+  investments: [],
   assets: []
 };
 
@@ -58,6 +66,27 @@ function removeLoan(index) {
   state.loans.splice(index, 1);
 }
 
+function addInvestment() {
+  if (state.investments.length >= LIMITS.investments) {
+    return false;
+  }
+
+  state.investments.push({ ...DEFAULT_INVESTMENT });
+  return true;
+}
+
+function updateInvestment(index, key, value) {
+  if (!state.investments[index]) {
+    return;
+  }
+
+  state.investments[index][key] = ["capital", "rate"].includes(key) ? Number(value) || 0 : value;
+}
+
+function removeInvestment(index) {
+  state.investments.splice(index, 1);
+}
+
 function addAsset() {
   if (state.assets.length >= LIMITS.assets) {
     return false;
@@ -83,12 +112,15 @@ window.Capital360State = {
   LIMITS,
   state,
   addAsset,
+  addInvestment,
   addLoan,
   removeAsset,
+  removeInvestment,
   removeLoan,
   setHouseholdValue,
   setLanguage,
   updateAsset,
+  updateInvestment,
   updateLoan
 };
 })();
