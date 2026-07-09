@@ -2,16 +2,19 @@
 const { createTranslator } = window.Capital360Translations;
 const {
   addAsset,
+  addInvestment,
   addLoan,
   removeAsset,
+  removeInvestment,
   removeLoan,
   setHouseholdValue,
   setLanguage,
   state,
   updateAsset,
+  updateInvestment,
   updateLoan
 } = window.Capital360State;
-const { applyStaticTranslations, renderAnalysis, renderApp, renderAssets, renderLoans } = window.Capital360Render;
+const { applyStaticTranslations, renderAnalysis, renderApp, renderAssets, renderInvestments, renderLoans } = window.Capital360Render;
 
 const t = createTranslator(() => state.language);
 
@@ -29,6 +32,7 @@ function changeLanguage(language) {
   setLanguage(language);
   applyStaticTranslations(t);
   renderLoans(t);
+  renderInvestments(t);
   renderAssets(t);
   renderAnalysis(t);
 }
@@ -44,6 +48,12 @@ function handleInput(event) {
 
   if (target.dataset.asset !== undefined) {
     updateAsset(Number(target.dataset.asset), target.dataset.key, target.value);
+    renderAnalysis(t);
+    return;
+  }
+
+  if (target.dataset.investment !== undefined) {
+    updateInvestment(Number(target.dataset.investment), target.dataset.key, target.value);
     renderAnalysis(t);
     return;
   }
@@ -85,6 +95,17 @@ function handleClick(event) {
     return;
   }
 
+  if (target.id === "addInvestment") {
+    if (!addInvestment()) {
+      alert(t("alert_investment"));
+      return;
+    }
+
+    renderInvestments(t);
+    renderAnalysis(t);
+    return;
+  }
+
   if (target.dataset.removeLoan !== undefined) {
     removeLoan(Number(target.dataset.removeLoan));
     renderLoans(t);
@@ -95,6 +116,13 @@ function handleClick(event) {
   if (target.dataset.removeAsset !== undefined) {
     removeAsset(Number(target.dataset.removeAsset));
     renderAssets(t);
+    renderAnalysis(t);
+    return;
+  }
+
+  if (target.dataset.removeInvestment !== undefined) {
+    removeInvestment(Number(target.dataset.removeInvestment));
+    renderInvestments(t);
     renderAnalysis(t);
   }
 }
