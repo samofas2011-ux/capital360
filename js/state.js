@@ -25,6 +25,21 @@ const DEFAULT_INVESTMENT = {
   rate: 6
 };
 
+const SALARY_MONTHS = [
+  "december",
+  "january",
+  "february",
+  "march",
+  "april",
+  "may",
+  "june",
+  "july",
+  "august",
+  "september",
+  "october",
+  "november"
+];
+
 const state = {
   language: "es",
   income: 0,
@@ -32,7 +47,8 @@ const state = {
   extraPayment: 100000,
   loans: [],
   investments: [],
-  assets: []
+  assets: [],
+  salaries: SALARY_MONTHS.map((month) => ({ month, amount: 0 }))
 };
 
 function setLanguage(language) {
@@ -108,8 +124,17 @@ function removeAsset(index) {
   state.assets.splice(index, 1);
 }
 
+function updateSalary(index, value) {
+  if (!state.salaries[index]) {
+    return;
+  }
+
+  state.salaries[index].amount = Number(value) || 0;
+}
+
 window.Capital360State = {
   LIMITS,
+  SALARY_MONTHS,
   state,
   addAsset,
   addInvestment,
@@ -121,6 +146,7 @@ window.Capital360State = {
   setLanguage,
   updateAsset,
   updateInvestment,
-  updateLoan
+  updateLoan,
+  updateSalary
 };
 })();
