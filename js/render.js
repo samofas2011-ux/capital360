@@ -62,11 +62,25 @@ function renderAssets(t) {
     state.assets.length >= LIMITS.assets ? t("limit_assets") : "";
 }
 
+function renderInvestments(t) {
+  const investmentEl = document.getElementById("investments");
+
+  if (!state.investments.length) {
+    investmentEl.innerHTML = `<div class="empty-state">${t("no_investments")}</div>`;
+  } else {
+    investmentEl.innerHTML = state.investments.map((investment, index) => investmentRowTemplate(investment, index, t)).join("");
+  }
+
+  document.getElementById("investmentLimit").textContent =
+    state.investments.length >= LIMITS.investments ? t("limit_investments") : "";
+}
+
 function renderAnalysis(t) {
   const summary = summarizeFinances({
     income: state.income,
     expenses: state.expenses,
     loans: state.loans,
+    investments: state.investments,
     assets: state.assets,
     extraPayment: state.extraPayment
   });
@@ -83,6 +97,7 @@ function renderAnalysis(t) {
   document.getElementById("score").textContent = `${score}/100`;
   document.getElementById("debt").textContent = formatCurrency(summary.totalDebt);
   document.getElementById("dti").textContent = `${summary.monthlyDti.toFixed(1)}%`;
+  document.getElementById("investmentIncome").textContent = formatCurrency(summary.annualInvestmentIncome);
   document.getElementById("debtFree").textContent = monthName(summary.extraMonths, state.language);
   document.getElementById("netWorth").textContent = formatCurrency(summary.netWorth);
   document.getElementById("extraLabel").textContent = formatCurrency(state.extraPayment);
@@ -110,6 +125,7 @@ function renderAnalysis(t) {
 function renderApp(t) {
   applyStaticTranslations(t);
   renderLoans(t);
+  renderInvestments(t);
   renderAssets(t);
   renderAnalysis(t);
 }
@@ -118,8 +134,9 @@ function renderEmptyAnalysis(summary, t) {
   document.getElementById("score").textContent = "-";
   document.getElementById("debt").textContent = formatCurrency(0);
   document.getElementById("dti").textContent = "0.0%";
+  document.getElementById("investmentIncome").textContent = formatCurrency(summary.annualInvestmentIncome);
   document.getElementById("debtFree").textContent = "-";
-  document.getElementById("netWorth").textContent = formatCurrency(summary.assetValue);
+  document.getElementById("netWorth").textContent = formatCurrency(summary.netWorth);
   document.getElementById("extraLabel").textContent = formatCurrency(state.extraPayment);
   document.getElementById("timeSaved").textContent = `0 ${t("mo")}`;
   document.getElementById("interestSaved").textContent = formatCurrency(0);
@@ -128,8 +145,13 @@ function renderEmptyAnalysis(summary, t) {
   document.getElementById("heroSave").textContent = formatCurrency(0);
   document.getElementById("heroCash").textContent = formatCurrency(summary.cashFlow);
   document.getElementById("saveBar").style.width = "5%";
-  document.getElementById("recommendations").innerHTML =
-    `<div class="rec"><b>${t("start_here")}</b> ${t("add_loan_prompt")}</div>`;
+  const emptyRecommendations = [`<div class="rec"><b>${t("start_here")}</b> ${t("add_loan_prompt")}</div>`];
+
+  if (summary.investmentCapital > 0) {
+    emptyRecommendations.push(`<div class="rec"><b>${t("rec_investment")}</b> ${t("rec_investment2")} ${formatCurrency(summary.investmentCapital)} ${t("rec_investment3")} ${formatCurrency(summary.annualInvestmentIncome)}.</div>`);
+  }
+
+  document.getElementById("recommendations").innerHTML = emptyRecommendations.join("");
   document.getElementById("loanTable").innerHTML = `<tr><td colspan="5">${t("no_loan_rows")}</td></tr>`;
 }
 
@@ -151,6 +173,10 @@ function recommendationTemplates(summary, t) {
     recs.push(`<div class="rec"><b>${t("rec_dti")}</b> ${t("rec_dti2")}</div>`);
   } else {
     recs.push(`<div class="rec"><b>${t("rec_healthy")}</b> ${t("rec_healthy2")}</div>`);
+  }
+
+  if (summary.investmentCapital > 0) {
+    recs.push(`<div class="rec"><b>${t("rec_investment")}</b> ${t("rec_investment2")} ${formatCurrency(summary.investmentCapital)} ${t("rec_investment3")} ${formatCurrency(summary.annualInvestmentIncome)}.</div>`);
   }
 
   recs.push(`<div class="rec"><b>${t("rec_bonus")}</b> ${t("rec_bonus2")} ${escapeHtml(high?.name || t("highest_rate_fallback"))} ${t("rec_bonus3")}</div>`);
@@ -201,11 +227,32 @@ function assetRowTemplate(asset, index, t) {
   `;
 }
 
+function investmentRowTemplate(investment, index, t) {
+  return `
+    <div class="form-row investment-row">
+      <div class="field">
+        <label>${t("investment")}</label>
+        <input data-investment="${index}" data-key="name" value="${escapeHtml(investment.name)}">
+      </div>
+      <div class="field">
+        <label>${t("capital_invested")}</label>
+        <input type="number" data-investment="${index}" data-key="capital" value="${escapeHtml(investment.capital)}">
+      </div>
+      <div class="field">
+        <label>${t("interest_rate")}</label>
+        <input type="number" step=".1" data-investment="${index}" data-key="rate" value="${escapeHtml(investment.rate)}">
+      </div>
+      <button class="remove" type="button" data-remove-investment="${index}">${t("remove")}</button>
+    </div>
+  `;
+}
+
 window.Capital360Render = {
   applyStaticTranslations,
   renderAnalysis,
   renderApp,
   renderAssets,
+  renderInvestments,
   renderLoans
 };
 })();
