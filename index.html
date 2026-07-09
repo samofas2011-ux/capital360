@@ -1,0 +1,241 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Capital360 | Centro de control financiero personal</title>
+  <link rel="stylesheet" href="css/styles.css" />
+</head>
+<body>
+  <header>
+    <nav>
+      <div class="brand">
+        <div class="logo">
+          <img src="assets/capital360-logo.png" alt="Capital360 logo">
+        </div>
+        Capital360
+      </div>
+      <div class="navlinks">
+        <a data-i18n="nav_tool" href="#tool">Free Tool</a>
+        <a data-i18n="nav_features" href="#features">Features</a>
+        <a data-i18n="nav_pricing" href="#pricing">Pricing</a>
+        <a data-i18n="nav_advertise" href="#partners">Advertise</a>
+      </div>
+      <div class="lang-toggle" aria-label="Language selector">
+        <button id="langEn" type="button">EN</button>
+        <button id="langEs" type="button" class="active">ES</button>
+      </div>
+      <button class="cta" data-i18n="start_free" data-scroll-target="#tool" type="button">Empezar gratis</button>
+    </nav>
+  </header>
+
+  <section class="hero">
+    <div class="hero-grid">
+      <div>
+        <div class="hero-brand">
+          <img src="assets/capital360-logo.png" alt="Capital360 logo">
+          <strong>Capital360</strong>
+        </div>
+        <span class="eyebrow" data-i18n="built">Diseñado para Costa Rica • ₡ Colones y $ Dólares</span>
+        <h1 data-i18n="hero_title">Tu centro de control financiero empieza en la página principal.</h1>
+        <p data-i18n="hero_desc">Analiza préstamos, ingresos, activos, fechas de pago y escenarios con pagos adicionales en minutos. Gratis permite modelar hasta 3 préstamos y 2 activos. Pro desbloquea todo el sistema financiero.</p>
+        <div class="hero-actions">
+          <button class="btn btn-primary" data-i18n="analyze" data-scroll-target="#tool" type="button">Analizar mis finanzas</button>
+          <button class="btn btn-secondary" data-i18n="plans" data-scroll-target="#pricing" type="button">Ver planes</button>
+        </div>
+      </div>
+      <div class="hero-card">
+        <h3 data-i18n="preview">Vista previa</h3>
+        <div class="mini-score">
+          <div class="mini">
+            <label data-i18n="score">Capital Score</label>
+            <strong id="heroScore">82/100</strong>
+          </div>
+          <div class="mini">
+            <label data-i18n="date">Fecha libre de deuda</label>
+            <strong id="heroDate">2031</strong>
+          </div>
+          <div class="mini">
+            <label data-i18n="saved">Interés ahorrado</label>
+            <strong id="heroSave">₡0</strong>
+          </div>
+          <div class="mini">
+            <label data-i18n="cash">Flujo mensual</label>
+            <strong id="heroCash">₡0</strong>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <main id="tool" class="app">
+    <div class="panel">
+      <div class="section-title">
+        <div>
+          <h2 data-i18n="analyzer">Analizador Capital360 Gratis</h2>
+          <p data-i18n="analyzer_desc">Ingresa los ingresos del hogar, préstamos y activos. La demo calcula fechas de pago y recomendaciones automáticamente.</p>
+        </div>
+        <span class="pill" data-i18n="limit">Límite gratis: 3 préstamos + 2 activos</span>
+      </div>
+
+      <div class="grid">
+        <div class="field">
+          <label data-i18n="income">Ingreso mensual del hogar</label>
+          <input id="income" type="number" placeholder="e.g. 2500000" value="">
+        </div>
+        <div class="field">
+          <label data-i18n="expenses">Gastos mensuales sin incluir préstamos</label>
+          <input id="expenses" type="number" placeholder="e.g. 1200000" value="">
+        </div>
+      </div>
+
+      <h3 data-i18n="loans">Préstamos</h3>
+      <div id="loans"></div>
+      <button id="addLoan" class="btn btn-primary" type="button" data-i18n="add_loan">+ Agregar préstamo</button>
+      <span class="limit-note" id="loanLimit"></span>
+
+      <h3 data-i18n="assets">Assets</h3>
+      <div id="assets"></div>
+      <button id="addAsset" class="btn btn-secondary btn-asset" type="button" data-i18n="add_asset">+ Agregar activo</button>
+      <span class="limit-note" id="assetLimit"></span>
+
+      <div class="summary" aria-live="polite">
+        <div class="metric">
+          <span data-i18n="score">Capital Score</span>
+          <strong id="score">-</strong>
+        </div>
+        <div class="metric">
+          <span data-i18n="total_debt">Deuda total</span>
+          <strong id="debt">-</strong>
+        </div>
+        <div class="metric">
+          <span data-i18n="dti">DTI mensual</span>
+          <strong id="dti">-</strong>
+        </div>
+        <div class="metric">
+          <span data-i18n="debtfree">Fecha libre de deuda</span>
+          <strong id="debtFree">-</strong>
+        </div>
+        <div class="metric">
+          <span data-i18n="networth">Patrimonio neto</span>
+          <strong id="netWorth">-</strong>
+        </div>
+      </div>
+
+      <div class="results">
+        <section>
+          <h3 data-i18n="recs">Recomendaciones automáticas</h3>
+          <div id="recommendations" class="recommendations"></div>
+          <table class="table">
+            <thead>
+              <tr>
+                <th data-i18n="loan">Préstamo</th>
+                <th data-i18n="balance">Saldo</th>
+                <th data-i18n="rate">Tasa</th>
+                <th data-i18n="tenure">Plazo</th>
+                <th data-i18n="interest">Interés est.</th>
+              </tr>
+            </thead>
+            <tbody id="loanTable"></tbody>
+          </table>
+        </section>
+
+        <aside class="scenario">
+          <h3 data-i18n="scenario">Constructor de escenarios</h3>
+          <p class="limit-note" data-i18n="scenario_desc">Mueve el control para ver cómo los pagos adicionales aceleran la libertad financiera usando el método avalancha.</p>
+          <div class="range-wrap">
+            <label><span data-i18n="extra">Pago mensual adicional:</span> <b id="extraLabel">₡100,000</b></label>
+            <input id="extra" type="range" min="0" max="1000000" step="25000" value="100000">
+          </div>
+          <div class="bar"><span id="saveBar"></span></div>
+          <div class="summary scenario-summary">
+            <div class="metric">
+              <span data-i18n="time_saved">Tiempo ahorrado</span>
+              <strong id="timeSaved">-</strong>
+            </div>
+            <div class="metric">
+              <span data-i18n="interest_saved">Interés ahorrado</span>
+              <strong id="interestSaved">-</strong>
+            </div>
+          </div>
+        </aside>
+      </div>
+    </div>
+  </main>
+
+  <section id="features" class="modules">
+    <div class="section-title">
+      <div>
+        <h2 data-i18n="modules">Capital360 modules</h2>
+        <p data-i18n="modules_desc">Start with debt optimization, then expand into a complete household finance platform.</p>
+      </div>
+    </div>
+    <div class="cards">
+      <div class="card">
+        <h3 data-i18n="debt_opt">Debt Optimizer</h3>
+        <p data-i18n="debt_opt_desc">Loans, credit cards, tenure, payoff dates, extra payment scenarios and AI recommendations.</p>
+      </div>
+      <div class="card">
+        <h3 data-i18n="aguinaldo">Aguinaldo Planner</h3>
+        <p data-i18n="aguinaldo_desc">Local CR feature: decide how much to pay, save or invest when the annual bonus arrives.</p>
+      </div>
+      <div class="card">
+        <h3 data-i18n="net_mod">Assets & Net Worth</h3>
+        <p data-i18n="net_desc">Track property, vehicles, savings and investments to see the full financial picture.</p>
+      </div>
+      <div class="card locked">
+        <h3 data-i18n="market">Bank Marketplace</h3>
+        <p data-i18n="market_desc">Refinance, mortgage, insurance and vehicle loan offers from partners.</p>
+      </div>
+      <div class="card locked">
+        <h3 data-i18n="family">Family Mode</h3>
+        <p data-i18n="family_desc">Household income, shared goals and monthly reports for couples and families.</p>
+      </div>
+      <div class="card locked">
+        <h3 data-i18n="cfo">AI Personal CFO</h3>
+        <p data-i18n="cfo_desc">Ask whether you can buy a car, refinance, use your bonus or accelerate debt.</p>
+      </div>
+    </div>
+  </section>
+
+  <section id="pricing" class="pricing">
+    <div class="section-title">
+      <div>
+        <h2 data-i18n="freemium">Freemium model</h2>
+        <p data-i18n="freemium_desc">The homepage is free and interactive. Full access becomes a monthly subscription.</p>
+      </div>
+    </div>
+    <div class="cards">
+      <div class="card">
+        <h3 data-i18n="free">Free</h3>
+        <div class="price">₡0</div>
+        <p data-i18n="free_desc">3 loans, 2 assets, basic score, unlimited scenarios, simple recommendations.</p>
+      </div>
+      <div class="card">
+        <h3>Pro</h3>
+        <div class="price">₡4,900/mo</div>
+        <p data-i18n="pro_desc">Unlimited loans/assets, PDF reports, family mode, aguinaldo optimizer and AI advisor.</p>
+      </div>
+      <div class="card">
+        <h3 data-i18n="partners">Partners</h3>
+        <div class="price" data-i18n="custom">Custom</div>
+        <p data-i18n="partners_desc">Advertising, refinance leads, white-label analytics and financial wellness programs.</p>
+      </div>
+    </div>
+  </section>
+
+  <section id="partners" class="pricing">
+    <div class="panel">
+      <h2 data-i18n="ads">Advertising & partner placement</h2>
+      <p class="limit-note" data-i18n="ads_desc">Capital360 can show contextual offers after analysis: refinance options, insurance, mortgage prequalification, vehicle financing and financial advisory services. Offers should be clearly labeled and based on user benefit, not generic ads.</p>
+    </div>
+  </section>
+
+  <footer class="footer" data-i18n="footer">Capital360 prototype • Personal Financial Command Center for Costa Rica</footer>
+  <script src="js/translations.js?v=20260708b"></script>
+  <script src="js/state.js?v=20260708b"></script>
+  <script src="js/finance.js?v=20260708b"></script>
+  <script src="js/render.js?v=20260708b"></script>
+  <script src="js/app.js?v=20260708b"></script>
+</body>
+</html>
