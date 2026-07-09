@@ -4,7 +4,7 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Capital360 | Centro de control financiero personal</title>
-  <link rel="stylesheet" href="css/styles.css?v=20260709-analyzer" />
+  <link rel="stylesheet" href="css/styles.css?v=20260709-analytics" />
 </head>
 <body>
   <header>
@@ -77,6 +77,63 @@
             <strong id="heroCash">₡0</strong>
           </div>
         </div>
+      </section>
+
+      <section class="analytics-module">
+        <div class="module-heading">
+          <div>
+            <h3 data-i18n="analytics">Analítica financiera</h3>
+            <p data-i18n="analytics_desc">Lectura rápida del perfil completo: flujo, deuda, activos, inversiones y aguinaldo proyectado.</p>
+          </div>
+        </div>
+        <div id="analytics" class="analytics-grid"></div>
+        <div class="analytics-bars">
+          <div>
+            <span data-i18n="bar_cash">Flujo disponible</span>
+            <div class="bar analytics-bar"><span id="cashBar"></span></div>
+          </div>
+          <div>
+            <span data-i18n="bar_debt">Carga de deuda</span>
+            <div class="bar analytics-bar"><span id="debtBar"></span></div>
+          </div>
+          <div>
+            <span data-i18n="bar_assets">Activos del perfil</span>
+            <div class="bar analytics-bar"><span id="assetBar"></span></div>
+          </div>
+        </div>
+      </section>
+
+      <section class="aguinaldo-module">
+        <div class="module-heading">
+          <div>
+            <h3 data-i18n="aguinaldo_module">Composición del aguinaldo</h3>
+            <p data-i18n="aguinaldo_module_desc">Ingresa los salarios recibidos de diciembre a noviembre. El estimado se calcula sumando esos salarios y dividiendo entre 12.</p>
+          </div>
+          <div class="module-total">
+            <span data-i18n="aguinaldo_estimate">Aguinaldo estimado</span>
+            <strong id="aguinaldoEstimate">₡0</strong>
+          </div>
+        </div>
+        <div id="salaryMonths" class="salary-grid"></div>
+        <div class="aguinaldo-breakdown">
+          <div class="metric">
+            <span data-i18n="salary_total">Salarios del periodo</span>
+            <strong id="salaryTotal">₡0</strong>
+          </div>
+          <div class="metric">
+            <span data-i18n="salary_months">Meses con salario</span>
+            <strong id="salaryMonthsCount">0/12</strong>
+          </div>
+          <div class="metric">
+            <span data-i18n="salary_average">Promedio mensual trabajado</span>
+            <strong id="salaryAverage">₡0</strong>
+          </div>
+          <div class="metric">
+            <span data-i18n="aguinaldo_formula">Fórmula</span>
+            <strong id="aguinaldoFormula">₡0 / 12 = ₡0</strong>
+          </div>
+        </div>
+        <div id="aguinaldoComposition" class="composition-list"></div>
       </section>
 
       <div class="grid">
@@ -242,10 +299,10 @@
   </section>
 
   <footer class="footer" data-i18n="footer">Capital360 prototype • Personal Financial Command Center for Costa Rica</footer>
-  <script src="js/translations.js?v=20260709-analyzer"></script>
-  <script src="js/state.js?v=20260709-analyzer"></script>
-  <script src="js/finance.js?v=20260709-analyzer"></script>
-  <script src="js/render.js?v=20260709-analyzer"></script>
-  <script src="js/app.js?v=20260709-analyzer"></script>
+  <script src="js/translations.js?v=20260709-analytics"></script>
+  <script src="js/state.js?v=20260709-analytics"></script>
+  <script src="js/finance.js?v=20260709-analytics"></script>
+  <script src="js/render.js?v=20260709-analytics"></script>
+  <script src="js/app.js?v=20260709-analytics"></script>
 </body>
 </html>
