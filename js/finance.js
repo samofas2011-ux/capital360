@@ -114,10 +114,34 @@ function summarizeFinances({ income, expenses, loans, investments, assets, extra
   };
 }
 
+function summarizeAguinaldo(salaries) {
+  const salaryRows = salaries.map((salary) => ({
+    ...salary,
+    amount: Number(salary.amount) || 0
+  }));
+  const totalSalary = salaryRows.reduce((sum, salary) => sum + salary.amount, 0);
+  const monthsWithSalary = salaryRows.filter((salary) => salary.amount > 0).length;
+  const aguinaldo = totalSalary / 12;
+  const averageWorkedMonth = monthsWithSalary ? totalSalary / monthsWithSalary : 0;
+
+  return {
+    salaryRows: salaryRows.map((salary) => ({
+      ...salary,
+      contribution: totalSalary ? (salary.amount / totalSalary) * 100 : 0
+    })),
+    totalSalary,
+    monthsWithSalary,
+    missingMonths: Math.max(0, 12 - monthsWithSalary),
+    averageWorkedMonth,
+    aguinaldo
+  };
+}
+
 window.Capital360Finance = {
   formatCurrency,
   monthName,
   paymentInterest,
+  summarizeAguinaldo,
   summarizeFinances
 };
 })();
