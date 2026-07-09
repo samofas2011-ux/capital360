@@ -12,7 +12,8 @@ const {
   state,
   updateAsset,
   updateInvestment,
-  updateLoan
+  updateLoan,
+  updateSalary
 } = window.Capital360State;
 const { applyStaticTranslations, renderAnalysis, renderApp, renderAssets, renderInvestments, renderLoans } = window.Capital360Render;
 
@@ -54,6 +55,12 @@ function handleInput(event) {
 
   if (target.dataset.investment !== undefined) {
     updateInvestment(Number(target.dataset.investment), target.dataset.key, target.value);
+    renderAnalysis(t);
+    return;
+  }
+
+  if (target.dataset.salary !== undefined) {
+    updateSalary(Number(target.dataset.salary), target.value);
     renderAnalysis(t);
     return;
   }
