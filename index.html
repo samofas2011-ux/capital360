@@ -4,7 +4,7 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Capital360 | Centro de control financiero personal</title>
-  <link rel="stylesheet" href="css/styles.css?v=20260709-invest" />
+  <link rel="stylesheet" href="css/styles.css?v=20260709-analyzer" />
 </head>
 <body>
   <header>
@@ -44,7 +44,20 @@
           <button class="btn btn-secondary" data-i18n="plans" data-scroll-target="#pricing" type="button">Ver planes</button>
         </div>
       </div>
-      <div class="hero-card">
+    </div>
+  </section>
+
+  <main id="tool" class="app">
+    <div class="panel">
+      <div class="section-title">
+        <div>
+          <h2 data-i18n="analyzer">Analizador Capital360 Gratis</h2>
+          <p data-i18n="analyzer_desc">Ingresa los ingresos del hogar, préstamos y activos. La demo calcula fechas de pago y recomendaciones automáticamente.</p>
+        </div>
+        <span class="pill" data-i18n="limit">Límite gratis: 3 préstamos + 2 activos</span>
+      </div>
+
+      <section class="analyzer-preview" aria-label="Vista previa">
         <h3 data-i18n="preview">Vista previa</h3>
         <div class="mini-score">
           <div class="mini">
@@ -64,19 +77,7 @@
             <strong id="heroCash">₡0</strong>
           </div>
         </div>
-      </div>
-    </div>
-  </section>
-
-  <main id="tool" class="app">
-    <div class="panel">
-      <div class="section-title">
-        <div>
-          <h2 data-i18n="analyzer">Analizador Capital360 Gratis</h2>
-          <p data-i18n="analyzer_desc">Ingresa los ingresos del hogar, préstamos y activos. La demo calcula fechas de pago y recomendaciones automáticamente.</p>
-        </div>
-        <span class="pill" data-i18n="limit">Límite gratis: 3 préstamos + 2 activos</span>
-      </div>
+      </section>
 
       <div class="grid">
         <div class="field">
@@ -241,10 +242,10 @@
   </section>
 
   <footer class="footer" data-i18n="footer">Capital360 prototype • Personal Financial Command Center for Costa Rica</footer>
-  <script src="js/translations.js?v=20260709-invest"></script>
-  <script src="js/state.js?v=20260709-invest"></script>
-  <script src="js/finance.js?v=20260709-invest"></script>
-  <script src="js/render.js?v=20260709-invest"></script>
-  <script src="js/app.js?v=20260709-invest"></script>
+  <script src="js/translations.js?v=20260709-analyzer"></script>
+  <script src="js/state.js?v=20260709-analyzer"></script>
+  <script src="js/finance.js?v=20260709-analyzer"></script>
+  <script src="js/render.js?v=20260709-analyzer"></script>
+  <script src="js/app.js?v=20260709-analyzer"></script>
 </body>
 </html>
