@@ -117,16 +117,13 @@ nav {
 .hero {
   background: linear-gradient(135deg, var(--navy), #102c52 60%, #0b503f);
   color: #fff;
-  padding: 62px 5vw 42px;
+  padding: 46px 5vw 34px;
 }
 
 .hero-grid {
   max-width: 1240px;
   margin: auto;
-  display: grid;
-  grid-template-columns: 1.02fr .98fr;
-  gap: 34px;
-  align-items: center;
+  display: block;
 }
 
 .hero-brand {
@@ -173,7 +170,7 @@ nav {
   font-size: 19px;
   color: #d7e4f0;
   line-height: 1.6;
-  max-width: 640px;
+  max-width: 760px;
 }
 
 .hero-actions {
@@ -210,35 +207,24 @@ nav {
   background: #0b503f;
 }
 
-.hero-card {
-  background: rgba(255, 255, 255, .1);
-  border: 1px solid rgba(255, 255, 255, .16);
-  border-radius: 28px;
-  padding: 24px;
-  box-shadow: 0 24px 70px rgba(0, 0, 0, .25);
-  backdrop-filter: blur(10px);
-}
-
-.hero-card h3 {
-  margin-top: 0;
-}
-
 .mini-score {
   display: grid;
-  grid-template-columns: 1fr 1fr;
+  grid-template-columns: repeat(4, 1fr);
   gap: 14px;
 }
 
 .mini {
-  background: rgba(255, 255, 255, .09);
-  border-radius: 18px;
+  background: #f8fafc;
+  border: 1px solid var(--border);
+  border-radius: 16px;
   padding: 16px;
 }
 
 .mini label {
   display: block;
-  color: #bdd1e8;
+  color: var(--muted);
   font-size: 13px;
+  font-weight: 700;
 }
 
 .mini strong {
@@ -248,17 +234,29 @@ nav {
 }
 
 .app {
-  max-width: 1240px;
-  margin: -24px auto 0;
-  padding: 0 5vw 60px;
+  width: 100%;
+  margin: 0;
+  padding: 0 0 60px;
 }
 
 .panel {
   background: var(--card);
+  border: 0;
+  border-radius: 0;
+  box-shadow: none;
+  padding: 32px 5vw 38px;
+}
+
+.analyzer-preview {
+  background: #ffffff;
   border: 1px solid var(--border);
-  border-radius: 28px;
-  box-shadow: 0 18px 60px rgba(15, 23, 42, .08);
-  padding: 24px;
+  border-radius: 18px;
+  margin: 22px 0;
+  padding: 18px;
+}
+
+.analyzer-preview h3 {
+  margin: 0 0 14px;
 }
 
 .section-title {
@@ -539,6 +537,7 @@ nav {
   }
 
   .summary,
+  .mini-score,
   .cards {
     grid-template-columns: 1fr 1fr;
   }
