@@ -4,7 +4,7 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Capital360 | Centro de control financiero personal</title>
-  <link rel="stylesheet" href="css/styles.css" />
+  <link rel="stylesheet" href="css/styles.css?v=20260709-logo" />
 </head>
 <body>
   <header>
@@ -47,22 +47,10 @@
       <div class="hero-card">
         <h3 data-i18n="preview">Vista previa</h3>
         <div class="mini-score">
-          <div class="mini">
-            <label data-i18n="score">Capital Score</label>
-            <strong id="heroScore">82/100</strong>
-          </div>
-          <div class="mini">
-            <label data-i18n="date">Fecha libre de deuda</label>
-            <strong id="heroDate">2031</strong>
-          </div>
-          <div class="mini">
-            <label data-i18n="saved">Interés ahorrado</label>
-            <strong id="heroSave">₡0</strong>
-          </div>
-          <div class="mini">
-            <label data-i18n="cash">Flujo mensual</label>
-            <strong id="heroCash">₡0</strong>
-          </div>
+          <div class="mini"><label data-i18n="score">Capital Score</label><strong id="heroScore">82/100</strong></div>
+          <div class="mini"><label data-i18n="date">Fecha libre de deuda</label><strong id="heroDate">2031</strong></div>
+          <div class="mini"><label data-i18n="saved">Interés ahorrado</label><strong id="heroSave">₡0</strong></div>
+          <div class="mini"><label data-i18n="cash">Flujo mensual</label><strong id="heroCash">₡0</strong></div>
         </div>
       </div>
     </div>
@@ -70,57 +58,12 @@
 
   <main id="tool" class="app">
     <div class="panel">
-      <div class="section-title">
-        <div>
-          <h2 data-i18n="analyzer">Analizador Capital360 Gratis</h2>
-          <p data-i18n="analyzer_desc">Ingresa los ingresos del hogar, préstamos y activos. La demo calcula fechas de pago y recomendaciones automáticamente.</p>
-        </div>
-        <span class="pill" data-i18n="limit">Límite gratis: 3 préstamos + 2 activos</span>
-      </div>
-
-      <div class="grid">
-        <div class="field">
-          <label data-i18n="income">Ingreso mensual del hogar</label>
-          <input id="income" type="number" placeholder="e.g. 2500000" value="">
-        </div>
-        <div class="field">
-          <label data-i18n="expenses">Gastos mensuales sin incluir préstamos</label>
-          <input id="expenses" type="number" placeholder="e.g. 1200000" value="">
-        </div>
-      </div>
-
-      <h3 data-i18n="loans">Préstamos</h3>
-      <div id="loans"></div>
-      <button id="addLoan" class="btn btn-primary" type="button" data-i18n="add_loan">+ Agregar préstamo</button>
-      <span class="limit-note" id="loanLimit"></span>
-
-      <h3 data-i18n="assets">Assets</h3>
-      <div id="assets"></div>
-      <button id="addAsset" class="btn btn-secondary btn-asset" type="button" data-i18n="add_asset">+ Agregar activo</button>
-      <span class="limit-note" id="assetLimit"></span>
-
-      <div class="summary" aria-live="polite">
-        <div class="metric"><span data-i18n="score">Capital Score</span><strong id="score">-</strong></div>
-        <div class="metric"><span data-i18n="total_debt">Deuda total</span><strong id="debt">-</strong></div>
-        <div class="metric"><span data-i18n="dti">DTI mensual</span><strong id="dti">-</strong></div>
-        <div class="metric"><span data-i18n="debtfree">Fecha libre de deuda</span><strong id="debtFree">-</strong></div>
-        <div class="metric"><span data-i18n="networth">Patrimonio neto</span><strong id="netWorth">-</strong></div>
-      </div>
-
-      <div class="results">
-        <section>
-          <h3 data-i18n="recs">Recomendaciones automáticas</h3>
-          <div id="recommendations" class="recommendations"></div>
-          <table class="table"><thead><tr><th data-i18n="loan">Préstamo</th><th data-i18n="balance">Saldo</th><th data-i18n="rate">Tasa</th><th data-i18n="tenure">Plazo</th><th data-i18n="interest">Interés est.</th></tr></thead><tbody id="loanTable"></tbody></table>
-        </section>
-        <aside class="scenario">
-          <h3 data-i18n="scenario">Constructor de escenarios</h3>
-          <p class="limit-note" data-i18n="scenario_desc">Mueve el control para ver cómo los pagos adicionales aceleran la libertad financiera usando el método avalancha.</p>
-          <div class="range-wrap"><label><span data-i18n="extra">Pago mensual adicional:</span> <b id="extraLabel">₡100,000</b></label><input id="extra" type="range" min="0" max="1000000" step="25000" value="100000"></div>
-          <div class="bar"><span id="saveBar"></span></div>
-          <div class="summary scenario-summary"><div class="metric"><span data-i18n="time_saved">Tiempo ahorrado</span><strong id="timeSaved">-</strong></div><div class="metric"><span data-i18n="interest_saved">Interés ahorrado</span><strong id="interestSaved">-</strong></div></div>
-        </aside>
-      </div>
+      <div class="section-title"><div><h2 data-i18n="analyzer">Analizador Capital360 Gratis</h2><p data-i18n="analyzer_desc">Ingresa los ingresos del hogar, préstamos y activos. La demo calcula fechas de pago y recomendaciones automáticamente.</p></div><span class="pill" data-i18n="limit">Límite gratis: 3 préstamos + 2 activos</span></div>
+      <div class="grid"><div class="field"><label data-i18n="income">Ingreso mensual del hogar</label><input id="income" type="number" placeholder="e.g. 2500000" value=""></div><div class="field"><label data-i18n="expenses">Gastos mensuales sin incluir préstamos</label><input id="expenses" type="number" placeholder="e.g. 1200000" value=""></div></div>
+      <h3 data-i18n="loans">Préstamos</h3><div id="loans"></div><button id="addLoan" class="btn btn-primary" type="button" data-i18n="add_loan">+ Agregar préstamo</button><span class="limit-note" id="loanLimit"></span>
+      <h3 data-i18n="assets">Assets</h3><div id="assets"></div><button id="addAsset" class="btn btn-secondary btn-asset" type="button" data-i18n="add_asset">+ Agregar activo</button><span class="limit-note" id="assetLimit"></span>
+      <div class="summary" aria-live="polite"><div class="metric"><span data-i18n="score">Capital Score</span><strong id="score">-</strong></div><div class="metric"><span data-i18n="total_debt">Deuda total</span><strong id="debt">-</strong></div><div class="metric"><span data-i18n="dti">DTI mensual</span><strong id="dti">-</strong></div><div class="metric"><span data-i18n="debtfree">Fecha libre de deuda</span><strong id="debtFree">-</strong></div><div class="metric"><span data-i18n="networth">Patrimonio neto</span><strong id="netWorth">-</strong></div></div>
+      <div class="results"><section><h3 data-i18n="recs">Recomendaciones automáticas</h3><div id="recommendations" class="recommendations"></div><table class="table"><thead><tr><th data-i18n="loan">Préstamo</th><th data-i18n="balance">Saldo</th><th data-i18n="rate">Tasa</th><th data-i18n="tenure">Plazo</th><th data-i18n="interest">Interés est.</th></tr></thead><tbody id="loanTable"></tbody></table></section><aside class="scenario"><h3 data-i18n="scenario">Constructor de escenarios</h3><p class="limit-note" data-i18n="scenario_desc">Mueve el control para ver cómo los pagos adicionales aceleran la libertad financiera usando el método avalancha.</p><div class="range-wrap"><label><span data-i18n="extra">Pago mensual adicional:</span> <b id="extraLabel">₡100,000</b></label><input id="extra" type="range" min="0" max="1000000" step="25000" value="100000"></div><div class="bar"><span id="saveBar"></span></div><div class="summary scenario-summary"><div class="metric"><span data-i18n="time_saved">Tiempo ahorrado</span><strong id="timeSaved">-</strong></div><div class="metric"><span data-i18n="interest_saved">Interés ahorrado</span><strong id="interestSaved">-</strong></div></div></aside></div>
     </div>
   </main>
 
